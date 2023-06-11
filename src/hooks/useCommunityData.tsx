@@ -55,6 +55,7 @@ const useCommunityData = () => {
       setCommunityStateValue((prev) => ({
         ...prev,
         mySnippets: snippets as CommunitySnippet[],
+        snippetsFetched: true,
       }));
     } catch (error: any) {
       console.log('getMySnippet error : ', error);
@@ -85,6 +86,7 @@ const useCommunityData = () => {
       setCommunityStateValue((prev) => ({
         ...prev,
         mySnippets: [],
+        snippetsFetched: false,
       }));
       return;
     }
@@ -105,6 +107,7 @@ const useCommunityData = () => {
       const newSnippet: CommunitySnippet = {
         communityId: communityData.id,
         imageUrl: communityData.imageURL || '',
+        isModerator: user?.uid === communityData.creatorId,
       };
       batch.set(
         doc(
@@ -156,6 +159,11 @@ const useCommunityData = () => {
     }
     setLoading(false);
   };
-  return { communityStateValue, onJoinOrLeaveCommunity, loading };
+  return {
+    communityStateValue,
+    onJoinOrLeaveCommunity,
+    loading,
+    getMySnippets,
+  };
 };
 export default useCommunityData;

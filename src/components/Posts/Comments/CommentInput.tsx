@@ -8,7 +8,7 @@ type CommentInputProps = {
   setCommentText: (value: string) => void;
   user: User;
   createLoading: boolean;
-  onCreateComment: (commentText: string) => void;
+  onCreateComment: () => void;
 };
 
 const CommentInput: React.FC<CommentInputProps> = ({
@@ -57,7 +57,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
               height={'26px'}
               disabled={!commentText.length}
               isLoading={createLoading}
-              onClick={() => onCreateComment(commentText)}
+              onClick={() => onCreateComment()}
             >
               Comment
             </Button>
